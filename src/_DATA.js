@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 let users = {
   sarahedo: {
     id: 'sarahedo',
@@ -40,7 +42,7 @@ let questions = {
     author: 'sarahedo',
     timestamp: 1467166872634,
     optionOne: {
-      votes: ['sarahedo'],
+      votes: [],
       text: 'have horrible short term memory',
     },
     optionTwo: {
@@ -57,7 +59,7 @@ let questions = {
       text: 'become a superhero',
     },
     optionTwo: {
-      votes: ['johndoe', 'sarahedo'],
+      votes: [],
       text: 'become a supervillain',
     },
   },
@@ -134,7 +136,7 @@ export const _getAllUsers = () =>
       const userIds = Object.keys(users)
       const userDetails = {}
       for (const userId of userIds) {
-        userDetails[userId] = { ...users[userId] }
+        userDetails[userId] = _.cloneDeep(users[userId], true)
         userDetails[userId].score =
           users[userId].questions.length +
           Object.keys(users[userId].answers).length
@@ -166,7 +168,7 @@ export const _getAllQuestions = authedUser =>
       const questionDetails = {}
 
       for (const questionId of questionIds) {
-        questionDetails[questionId] = { ...questions[questionId] }
+        questionDetails[questionId] = _.cloneDeep(questions[questionId], true)
 
         // if the user created question / has answered questions, then we return the votes stats. The details of users who votes is never sent
         if (
@@ -183,8 +185,8 @@ export const _getAllQuestions = authedUser =>
           delete questionDetails[questionId].optionOne.votes
           delete questionDetails[questionId].optionTwo.votes
         }
-        resolve(questionDetails)
       }
+      resolve(questionDetails)
     }, 500),
   )
 
@@ -216,7 +218,7 @@ export function _saveQuestion(question) {
       // adding question to the questions object
       questions = {
         ...questions,
-        [formattedQuestion.id]: formattedQuestion,
+        [formattedQuestion.id]: _.cloneDeep(formattedQuestion),
       }
 
       // updating user by adding the new question/poll id to the questions array of user
@@ -232,6 +234,8 @@ export function _saveQuestion(question) {
       formattedQuestion.optionOne.votes = 0
       formattedQuestion.optionTwo.votes = 0
 
+      console.log(questions)
+
       resolve(formattedQuestion)
     }, 1000)
   })
@@ -242,48 +246,40 @@ export function _saveQuestionAnswer({ authedUser, qid, answer }) {
   // eslint-disable-next-line no-unused-vars
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      // here qid is the question id, and answer is text, i.e. either optionOne or optionTwo
-
+      // a user can't answer his/her own poll
       if (authedUser === questions[qid].author) {
         reject()
-      }
-
-      users = {
-        ...users,
-        [authedUser]: {
-          ...users[authedUser],
-          answers: {
-            ...users[authedUser].answers,
-            [qid]: answer,
+      } else {
+        users = {
+          ...users,
+          [authedUser]: {
+            ...users[authedUser],
+            answers: {
+              ...users[authedUser].answers,
+              [qid]: answer,
+            },
           },
-        },
-      }
+        }
 
-      questions = {
-        ...questions,
-        [qid]: {
-          ...questions[qid],
-          [answer]: {
-            ...questions[qid][answer],
-            // adding authedUser id to the votes [] of correct option
-            votes: questions[qid][answer].votes.concat([authedUser]),
+        questions = {
+          ...questions,
+          [qid]: {
+            ...questions[qid],
+            [answer]: {
+              ...questions[qid][answer],
+              // adding authedUser id to the votes [] of correct option
+              votes: questions[qid][answer].votes.concat([authedUser]),
+            },
           },
-        },
-      }
+        }
 
-      const questionData = {
-        ...questions[qid],
-        optionOne: {
-          ...questions[qid].optionOne,
-          votes: questions[qid].optionOne.votes.length,
-        },
-        optionTwo: {
-          ...questions[qid].optionTwo,
-          votes: questions[qid].optionTwo.votes.length,
-        },
-      }
+        // creating question data to be returned to be stored in redux store
+        const questionData = _.cloneDeep(questions[qid])
+        questionData.optionOne.votes = questionData.optionOne.votes.length
+        questionData.optionTwo.votes = questionData.optionTwo.votes.length
 
-      resolve(questionData)
+        resolve(questionData)
+      }
     }, 500)
   })
 }
