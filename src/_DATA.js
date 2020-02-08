@@ -188,74 +188,98 @@ export const _getAllQuestions = authedUser =>
     }, 500),
   )
 
-// function formatQuestion({ optionOneText, optionTwoText, author }) {
-//   return {
-//     id: generateUID(),
-//     timestamp: Date.now(),
-//     author,
-//     optionOne: {
-//       votes: [],
-//       text: optionOneText,
-//     },
-//     optionTwo: {
-//       votes: [],
-//       text: optionTwoText,
-//     },
-//   }
-// }
+// formats the user input to create a new question/poll entry
+const formatQuestion = ({ optionOneText, optionTwoText, author }) => {
+  return {
+    id: generateUID(),
+    timestamp: Date.now(),
+    author,
+    optionOne: {
+      votes: [],
+      text: optionOneText,
+    },
+    optionTwo: {
+      votes: [],
+      text: optionTwoText,
+    },
+  }
+}
 
-// export function _saveQuestion(question) {
-//   // eslint-disable-next-line no-unused-vars
-//   return new Promise((res, rej) => {
-//     const authedUser = question.author
-//     const formattedQuestion = formatQuestion(question)
+// adds a new question to the list of questions
+export function _saveQuestion(question) {
+  // eslint-disable-next-line no-unused-vars
+  return new Promise((resolve, reject) => {
+    const authedUser = question.author
+    const formattedQuestion = formatQuestion(question)
 
-//     setTimeout(() => {
-//       questions = {
-//         ...questions,
-//         [formattedQuestion.id]: formattedQuestion,
-//       }
+    setTimeout(() => {
+      // adding question to the questions object
+      questions = {
+        ...questions,
+        [formattedQuestion.id]: formattedQuestion,
+      }
 
-//       users = {
-//         ...users,
-//         [authedUser]: {
-//           ...users[authedUser],
-//           questions: users[authedUser].questions.concat([formattedQuestion.id]),
-//         },
-//       }
+      // updating user by adding the new question/poll id to the questions array of user
+      users = {
+        ...users,
+        [authedUser]: {
+          ...users[authedUser],
+          questions: users[authedUser].questions.concat([formattedQuestion.id]),
+        },
+      }
 
-//       res(formattedQuestion)
-//     }, 1000)
-//   })
-// }
+      // replacing votes [] with vote count for consistency of data in redux store
+      formattedQuestion.optionOne.votes = 0
+      formattedQuestion.optionTwo.votes = 0
 
-// export function _saveQuestionAnswer({ authedUser, qid, answer }) {
-//   // eslint-disable-next-line no-unused-vars
-//   return new Promise((res, rej) => {
-//     setTimeout(() => {
-//       users = {
-//         ...users,
-//         [authedUser]: {
-//           ...users[authedUser],
-//           answers: {
-//             ...users[authedUser].answers,
-//             [qid]: answer,
-//           },
-//         },
-//       }
+      resolve(formattedQuestion)
+    }, 1000)
+  })
+}
 
-//       questions = {
-//         ...questions,
-//         [qid]: {
-//           ...questions[qid],
-//           [answer]: {
-//             ...questions[qid][answer],
-//             votes: questions[qid][answer].votes.concat([authedUser]),
-//           },
-//         },
-//       }
+// saves answer of a question and updates users and questions data accordingly
+export function _saveQuestionAnswer({ authedUser, qid, answer }) {
+  // eslint-disable-next-line no-unused-vars
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // here qid is the question id, and answer is text, i.e. either optionOne or optionTwo
 
-//       res()
-//     }, 500)
-//   })
-// }
+      users = {
+        ...users,
+        [authedUser]: {
+          ...users[authedUser],
+          answers: {
+            ...users[authedUser].answers,
+            [qid]: answer,
+          },
+        },
+      }
+
+      questions = {
+        ...questions,
+        [qid]: {
+          ...questions[qid],
+          [answer]: {
+            ...questions[qid][answer],
+            // adding authedUser id to the votes [] of correct option
+            votes: questions[qid][answer].votes.concat([authedUser]),
+          },
+        },
+      }
+
+      const questionData = {
+        ...questions[qid],
+        optionOne: {
+          ...questions[qid].optionOne,
+          votes: questions[qid].optionOne.votes.length,
+        },
+        optionTwo: {
+          ...questions[qid].optionTwo,
+          votes: questions[qid].optionTwo.votes.length,
+        },
+      }
+
+      resolve(questionData)
+    }, 500)
+  })
+}
