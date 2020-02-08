@@ -246,8 +246,11 @@ export function _saveQuestionAnswer({ authedUser, qid, answer }) {
   // eslint-disable-next-line no-unused-vars
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      // a user can't answer his/her own poll
-      if (authedUser === questions[qid].author) {
+      // a user can't answer his/her own poll, and can't answer an already answered question
+      if (
+        authedUser === questions[qid].author ||
+        hasUserAnswered(questions[qid], authedUser)
+      ) {
         reject()
       } else {
         users = {
