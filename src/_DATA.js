@@ -244,6 +244,10 @@ export function _saveQuestionAnswer({ authedUser, qid, answer }) {
     setTimeout(() => {
       // here qid is the question id, and answer is text, i.e. either optionOne or optionTwo
 
+      if (authedUser === questions[qid].author) {
+        reject()
+      }
+
       users = {
         ...users,
         [authedUser]: {
