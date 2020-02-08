@@ -115,99 +115,147 @@ let questions = {
   },
 }
 
-function generateUID() {
-  return (
-    Math.random()
-      .toString(36)
-      .substring(2, 15) +
-    Math.random()
-      .toString(36)
-      .substring(2, 15)
+// generates a random ID to be used when a new question/poll is created
+// eslint-disable-next-line no-unused-vars
+const generateUID = () =>
+  Math.random()
+    .toString(36)
+    .substring(2, 15) +
+  Math.random()
+    .toString(36)
+    .substring(2, 15)
+
+// returns basic user info for all users
+export const _getAllUsers = () =>
+  // eslint-disable-next-line no-unused-vars
+  new Promise((resolve, reject) =>
+    setTimeout(() => {
+      // get all user id's
+      const userIds = Object.keys(users)
+      const userDetails = {}
+      for (const userId of userIds) {
+        userDetails[userId] = { ...users[userId] }
+        userDetails[userId].score =
+          users[userId].questions.length +
+          Object.keys(users[userId].answers).length
+        delete userDetails[userId].answers
+      }
+      resolve(userDetails)
+    }, 500),
   )
-}
 
-export function _getUsers() {
-  // eslint-disable-next-line no-unused-vars
-  return new Promise((res, rej) => {
-    setTimeout(() => res({ ...users }), 1000)
-  })
-}
-
-export function _getQuestions() {
-  // eslint-disable-next-line no-unused-vars
-  return new Promise((res, rej) => {
-    setTimeout(() => res({ ...questions }), 1000)
-  })
-}
-
-function formatQuestion({ optionOneText, optionTwoText, author }) {
-  return {
-    id: generateUID(),
-    timestamp: Date.now(),
-    author,
-    optionOne: {
-      votes: [],
-      text: optionOneText,
-    },
-    optionTwo: {
-      votes: [],
-      text: optionTwoText,
-    },
+// checks if a user has answered a question
+const hasUserAnswered = (question, authedUser) => {
+  const { optionOne, optionTwo } = question
+  if (
+    optionOne.votes.includes(authedUser) ||
+    optionTwo.votes.includes(authedUser)
+  ) {
+    return true
   }
+  return false
 }
 
-export function _saveQuestion(question) {
+// returns basic question info for all questions and stats if the user has answered the question / is author of a question
+export const _getAllQuestions = authedUser =>
   // eslint-disable-next-line no-unused-vars
-  return new Promise((res, rej) => {
-    const authedUser = question.author
-    const formattedQuestion = formatQuestion(question)
-
+  new Promise((resolve, reject) =>
     setTimeout(() => {
-      questions = {
-        ...questions,
-        [formattedQuestion.id]: formattedQuestion,
+      // get all question id's
+      const questionIds = Object.keys(questions)
+      const questionDetails = {}
+
+      for (const questionId of questionIds) {
+        questionDetails[questionId] = { ...questions[questionId] }
+
+        // if the user created question / has answered questions, then we return the votes stats. The details of users who votes is never sent
+        if (
+          questionDetails[questionId].author === authedUser ||
+          hasUserAnswered(questionDetails[questionId], authedUser)
+        ) {
+          questionDetails[questionId].optionOne.votes =
+            questionDetails[questionId].optionOne.votes.length
+          questionDetails[questionId].optionTwo.votes =
+            questionDetails[questionId].optionTwo.votes.length
+        }
+        // stripping the votes stats as the user hasn't answered yet and is not the author for this question
+        else {
+          delete questionDetails[questionId].optionOne.votes
+          delete questionDetails[questionId].optionTwo.votes
+        }
+        resolve(questionDetails)
       }
+    }, 500),
+  )
 
-      users = {
-        ...users,
-        [authedUser]: {
-          ...users[authedUser],
-          questions: users[authedUser].questions.concat([formattedQuestion.id]),
-        },
-      }
+// function formatQuestion({ optionOneText, optionTwoText, author }) {
+//   return {
+//     id: generateUID(),
+//     timestamp: Date.now(),
+//     author,
+//     optionOne: {
+//       votes: [],
+//       text: optionOneText,
+//     },
+//     optionTwo: {
+//       votes: [],
+//       text: optionTwoText,
+//     },
+//   }
+// }
 
-      res(formattedQuestion)
-    }, 1000)
-  })
-}
+// export function _saveQuestion(question) {
+//   // eslint-disable-next-line no-unused-vars
+//   return new Promise((res, rej) => {
+//     const authedUser = question.author
+//     const formattedQuestion = formatQuestion(question)
 
-export function _saveQuestionAnswer({ authedUser, qid, answer }) {
-  // eslint-disable-next-line no-unused-vars
-  return new Promise((res, rej) => {
-    setTimeout(() => {
-      users = {
-        ...users,
-        [authedUser]: {
-          ...users[authedUser],
-          answers: {
-            ...users[authedUser].answers,
-            [qid]: answer,
-          },
-        },
-      }
+//     setTimeout(() => {
+//       questions = {
+//         ...questions,
+//         [formattedQuestion.id]: formattedQuestion,
+//       }
 
-      questions = {
-        ...questions,
-        [qid]: {
-          ...questions[qid],
-          [answer]: {
-            ...questions[qid][answer],
-            votes: questions[qid][answer].votes.concat([authedUser]),
-          },
-        },
-      }
+//       users = {
+//         ...users,
+//         [authedUser]: {
+//           ...users[authedUser],
+//           questions: users[authedUser].questions.concat([formattedQuestion.id]),
+//         },
+//       }
 
-      res()
-    }, 500)
-  })
-}
+//       res(formattedQuestion)
+//     }, 1000)
+//   })
+// }
+
+// export function _saveQuestionAnswer({ authedUser, qid, answer }) {
+//   // eslint-disable-next-line no-unused-vars
+//   return new Promise((res, rej) => {
+//     setTimeout(() => {
+//       users = {
+//         ...users,
+//         [authedUser]: {
+//           ...users[authedUser],
+//           answers: {
+//             ...users[authedUser].answers,
+//             [qid]: answer,
+//           },
+//         },
+//       }
+
+//       questions = {
+//         ...questions,
+//         [qid]: {
+//           ...questions[qid],
+//           [answer]: {
+//             ...questions[qid][answer],
+//             votes: questions[qid][answer].votes.concat([authedUser]),
+//           },
+//         },
+//       }
+
+//       res()
+//     }, 500)
+//   })
+// }
