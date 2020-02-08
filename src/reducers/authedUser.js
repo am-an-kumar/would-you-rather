@@ -1,11 +1,11 @@
-import { SET_AUTHED_USER, UNSET_AUTHED_USER } from '../actions/authedUser'
+import { LOGIN, LOGOUT } from '../actions/shared'
 
 const authedUser = (state = null, action) => {
   switch (action.type) {
-    case SET_AUTHED_USER:
+    case LOGIN:
       return action.authedUser
 
-    case UNSET_AUTHED_USER:
+    case LOGOUT:
       return null
 
     default:

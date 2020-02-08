@@ -19,20 +19,28 @@ const markQuestionAnswered = question => ({
   question,
 })
 
-export const handleReceiveAllQuestions = () => dispatch => {
-  getAllQuestions()
+export const handleReceiveAllQuestions = authedUser => dispatch => {
+  getAllQuestions(authedUser)
     .then(questions => dispatch(receiveAllQuestions(questions)))
     .catch(() => console.error('Error occured'))
 }
 
-export const handleAddNewQuestion = () => dispatch => {
-  saveQuestion()
+export const handleAddNewQuestion = (
+  optionOneText,
+  optionTwoText,
+  author,
+) => dispatch => {
+  saveQuestion({ optionOneText, optionTwoText, author })
     .then(question => dispatch(addNewQuestion(question)))
     .catch(() => console.error('Error occured'))
 }
 
-export const handleMarkQuestionAnswered = () => dispatch => {
-  saveQuestionAnswer()
+export const handleMarkQuestionAnswered = (
+  authedUser,
+  qid,
+  answer,
+) => dispatch => {
+  saveQuestionAnswer({ authedUser, qid, answer })
     .then(question => dispatch(markQuestionAnswered(question)))
     .catch(() => console.log('Error occured'))
 }

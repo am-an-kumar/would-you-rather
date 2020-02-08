@@ -283,8 +283,6 @@ export function _saveQuestion(question) {
       formattedQuestion.optionOne.votes = 0
       formattedQuestion.optionTwo.votes = 0
 
-      console.log(questions)
-
       resolve(formattedQuestion)
     }, 1000)
   })

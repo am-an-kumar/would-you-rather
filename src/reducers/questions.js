@@ -3,6 +3,7 @@ import {
   ADD_NEW_QUESTION,
   MARK_QUESTION_ANSWERED,
 } from '../actions/questions'
+import { LOGOUT } from '../actions/shared'
 
 const questions = (state = {}, action) => {
   switch (action.type) {
@@ -27,6 +28,9 @@ const questions = (state = {}, action) => {
           ...action.question,
         },
       }
+
+    case LOGOUT:
+      return {}
 
     default:
       return state
