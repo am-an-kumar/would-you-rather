@@ -1,65 +1,110 @@
 import _ from 'lodash'
 
 let users = {
+  dllanor: {
+    id: 'dllanor',
+    name: 'Ronalld',
+    avatarURL:
+      'https://media-exp1.licdn.com/dms/image/C4E03AQFr0eaoR9wh1A/profile-displayphoto-shrink_200_200/0?e=1586390400&v=beta&t=LxZVlO3onxfuzQGNCxNtN42a_uLJrgy7R0D2br6pu8s',
+    answers: {
+      am8ehyc8byjqgar0jgpubg: 'optionOne',
+      '8xf0y6ziyjabvozdd253nd': 'optionOne',
+      '6ni6ok3ym7mf1p33lnez': 'optionOne',
+    },
+    questions: ['8xf0y6ziyjabvozdd255xd'],
+  },
+  amank: {
+    id: 'amank',
+    name: 'Aman Kumar',
+    avatarURL:
+      'https://media-exp1.licdn.com/dms/image/C5103AQF1ZSXIWCwMdA/profile-displayphoto-shrink_200_200/0?e=1586390400&v=beta&t=UK0uToQiW04WN2gaxRRbhG3IRnfbeDsOIXS5XoroSzU',
+    answers: {
+      '8xf0y6ziyjabvozdd255xd': 'optionTwo',
+      '8xf0y6ziyjabvozdd253nd': 'optionOne',
+      '6ni6ok3ym7mf1p33lnez': 'optionTwo',
+    },
+    questions: ['am8ehyc8byjqgar0jgpubg'],
+  },
   sarahedo: {
     id: 'sarahedo',
     name: 'Sarah Edo',
-    avatarURL: '',
+    avatarURL: 'https://tylermcginnis.com/would-you-rather/sarah.jpg',
     answers: {
-      '8xf0y6ziyjabvozdd253nd': 'optionOne',
-      '6ni6ok3ym7mf1p33lnez': 'optionTwo',
-      am8ehyc8byjqgar0jgpub9: 'optionTwo',
-      loxhs1bqm25b708cmbf3g: 'optionTwo',
+      '6ni6ok3ym7mf1p33lnez': 'optionOne',
     },
     questions: ['8xf0y6ziyjabvozdd253nd', 'am8ehyc8byjqgar0jgpub9'],
   },
   tylermcginnis: {
     id: 'tylermcginnis',
     name: 'Tyler McGinnis',
-    avatarURL: '',
+    avatarURL: 'https://tylermcginnis.com/would-you-rather/tyler.jpg',
     answers: {
-      vthrdm985a262al8qx3do: 'optionOne',
-      xj352vofupe1dqz9emx13r: 'optionTwo',
+      '8xf0y6ziyjabvozdd253nd': 'optionTwo',
+      '6ni6ok3ym7mf1p33lnez': 'optionTwo',
     },
     questions: ['loxhs1bqm25b708cmbf3g', 'vthrdm985a262al8qx3do'],
   },
-  johndoe: {
-    id: 'johndoe',
-    name: 'John Doe',
-    avatarURL: '',
+  dan_abramov: {
+    id: 'dan_abramov',
+    name: 'Dan Abramov',
+    avatarURL: 'https://tylermcginnis.com/would-you-rather/dan.jpg',
     answers: {
-      xj352vofupe1dqz9emx13r: 'optionOne',
-      vthrdm985a262al8qx3do: 'optionTwo',
-      '6ni6ok3ym7mf1p33lnez': 'optionTwo',
+      '8xf0y6ziyjabvozdd253nd': 'optionTwo',
     },
     questions: ['6ni6ok3ym7mf1p33lnez', 'xj352vofupe1dqz9emx13r'],
   },
 }
 
 let questions = {
+  am8ehyc8byjqgar0jgpubg: {
+    id: 'am8ehyc8byjqgar0jgpubg',
+    author: 'amak',
+    timestamp: 1467166871614,
+    optionOne: {
+      votes: ['dllanor'],
+      text: 'be batman',
+    },
+    optionTwo: {
+      votes: [],
+      text: 'be joker',
+    },
+  },
+  '8xf0y6ziyjabvozdd255xd': {
+    id: '8xf0y6ziyjabvozdd255xd',
+    author: 'dllanor',
+    timestamp: 1467166872614,
+    optionOne: {
+      votes: [],
+      text: 'use facebook',
+    },
+    optionTwo: {
+      votes: [],
+      text: 'use instagram',
+    },
+  },
   '8xf0y6ziyjabvozdd253nd': {
     id: '8xf0y6ziyjabvozdd253nd',
     author: 'sarahedo',
     timestamp: 1467166872634,
     optionOne: {
-      votes: [],
+      votes: ['amank', 'dllanor'],
       text: 'have horrible short term memory',
     },
     optionTwo: {
-      votes: [],
+      votes: ['tylermcginnis', 'dan_abromov'],
       text: 'have horrible long term memory',
     },
   },
   '6ni6ok3ym7mf1p33lnez': {
     id: '6ni6ok3ym7mf1p33lnez',
-    author: 'johndoe',
+    author: 'dan_abramov',
     timestamp: 1468479767190,
     optionOne: {
-      votes: ['sarahedo'],
+      votes: ['sarahedo', 'dllanor'],
       text: 'become a superhero',
     },
     optionTwo: {
-      votes: [],
+      votes: ['tylermcginnis', 'amank'],
       text: 'become a supervillain',
     },
   },
@@ -98,13 +143,13 @@ let questions = {
       text: 'find $50 yourself',
     },
     optionTwo: {
-      votes: ['johndoe'],
+      votes: ['dan_abramov'],
       text: 'have your best friend find $500',
     },
   },
   xj352vofupe1dqz9emx13r: {
     id: 'xj352vofupe1dqz9emx13r',
-    author: 'johndoe',
+    author: 'dan_abramov',
     timestamp: 1493579767190,
     optionOne: {
       votes: [],
