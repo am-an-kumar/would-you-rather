@@ -4,20 +4,34 @@ import App from './components/App'
 import '@babel/polyfill'
 import './css/style.css'
 
-import { saveQuestionAnswer } from './utils/api'
+import { getAllUsers, getAllQuestions, saveQuestionAnswer } from './utils/api'
+
+getAllUsers().then(response => console.dir(response))
+getAllQuestions('sarahedo').then(response => console.dir(response))
 
 saveQuestionAnswer({
-  qid: '6ni6ok3ym7mf1p33lnez',
   authedUser: 'sarahedo',
+  qid: 'am8ehyc8byjqgar0jgpub9',
   answer: 'optionOne',
-}).then(question => console.dir(question))
+})
+  .then(response => console.log(response))
+  .catch(() => console.log('Error occured!!!'))
+
 saveQuestionAnswer({
-  qid: '6ni6ok3ym7mf1p33lnez',
   authedUser: 'sarahedo',
+  qid: 'xj352vofupe1dqz9emx13r',
+  answer: 'optionOne',
+})
+  .then(response => console.log(response))
+  .catch(() => console.log('Error occured!!!'))
+
+saveQuestionAnswer({
+  authedUser: 'sarahedo',
+  qid: 'xj352vofupe1dqz9emx13r',
   answer: 'optionTwo',
 })
-  .then(question => console.dir(question))
-  .catch(() => console.error('It errored, which is what we expect'))
+  .then(response => console.log(response))
+  .catch(() => console.log('Error occured!!!'))
 
 // react-axe will run only in dev mode
 if (process.env.NODE_ENV === 'development') {

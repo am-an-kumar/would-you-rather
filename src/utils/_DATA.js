@@ -55,7 +55,7 @@ let questions = {
     author: 'johndoe',
     timestamp: 1468479767190,
     optionOne: {
-      votes: [],
+      votes: ['sarahedo'],
       text: 'become a superhero',
     },
     optionTwo: {
@@ -72,7 +72,7 @@ let questions = {
       text: 'be telekinetic',
     },
     optionTwo: {
-      votes: ['sarahedo'],
+      votes: [],
       text: 'be telepathic',
     },
   },
@@ -94,7 +94,7 @@ let questions = {
     author: 'tylermcginnis',
     timestamp: 1489579767190,
     optionOne: {
-      votes: ['tylermcginnis'],
+      votes: ['sarahedo'],
       text: 'find $50 yourself',
     },
     optionTwo: {
@@ -107,7 +107,7 @@ let questions = {
     author: 'johndoe',
     timestamp: 1493579767190,
     optionOne: {
-      votes: ['johndoe'],
+      votes: [],
       text: 'write JavaScript',
     },
     optionTwo: {
@@ -146,16 +146,14 @@ export const _getAllUsers = () =>
     }, 500),
   )
 
-// checks if a user has answered a question
+// checks if a user has answered a question, returns optionNumber or else undefined
 const hasUserAnswered = (question, authedUser) => {
   const { optionOne, optionTwo } = question
-  if (
-    optionOne.votes.includes(authedUser) ||
-    optionTwo.votes.includes(authedUser)
-  ) {
-    return true
+  if (optionOne.votes.includes(authedUser)) {
+    return 'optionOne'
+  } else if (optionTwo.votes.includes(authedUser)) {
+    return 'optionTwo'
   }
-  return false
 }
 
 // returns basic question info for all questions and stats if the user has answered the question / is author of a question
@@ -170,11 +168,12 @@ export const _getAllQuestions = authedUser =>
       for (const questionId of questionIds) {
         questionDetails[questionId] = _.cloneDeep(questions[questionId], true)
 
+        const usersAnswer = hasUserAnswered(
+          questionDetails[questionId],
+          authedUser,
+        )
         // if the user created question / has answered questions, then we return the votes stats. The details of users who votes is never sent
-        if (
-          questionDetails[questionId].author === authedUser ||
-          hasUserAnswered(questionDetails[questionId], authedUser)
-        ) {
+        if (questionDetails[questionId].author === authedUser || usersAnswer) {
           questionDetails[questionId].optionOne.votes =
             questionDetails[questionId].optionOne.votes.length
           questionDetails[questionId].optionTwo.votes =
@@ -184,6 +183,11 @@ export const _getAllQuestions = authedUser =>
         else {
           delete questionDetails[questionId].optionOne.votes
           delete questionDetails[questionId].optionTwo.votes
+        }
+
+        // adding user's answer if authedUser has answered the question/poll
+        if (usersAnswer) {
+          questionDetails[questionId].answer = usersAnswer
         }
       }
       resolve(questionDetails)
@@ -280,6 +284,7 @@ export function _saveQuestionAnswer({ authedUser, qid, answer }) {
         const questionData = _.cloneDeep(questions[qid])
         questionData.optionOne.votes = questionData.optionOne.votes.length
         questionData.optionTwo.votes = questionData.optionTwo.votes.length
+        questionData.answer = answer
 
         resolve(questionData)
       }
