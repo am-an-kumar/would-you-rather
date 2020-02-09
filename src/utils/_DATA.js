@@ -182,9 +182,10 @@ export const _getAllUsers = () =>
       const userDetails = {}
       for (const userId of userIds) {
         userDetails[userId] = _.cloneDeep(users[userId], true)
-        userDetails[userId].score =
-          users[userId].questions.length +
-          Object.keys(users[userId].answers).length
+        userDetails[userId].asked = users[userId].questions.length
+        userDetails[userId].answered = Object.keys(users[userId].answers).length
+
+        // removing answers to make sure the authedUser is not able to see the options selected by other users
         delete userDetails[userId].answers
       }
       resolve(userDetails)
