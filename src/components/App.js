@@ -2,10 +2,10 @@ import React from 'react'
 import { hot } from 'react-hot-loader'
 import { connect } from 'react-redux'
 import Login from './Login'
-import Home from './Home'
+import Main from './Main'
 import PropTypes from 'prop-types'
 
-const App = ({ authedUser }) => (authedUser === null ? <Login /> : <Home />)
+const App = ({ authedUser }) => (authedUser === null ? <Login /> : <Main />)
 
 const mapStateToProps = ({ authedUser }) => ({
   authedUser,

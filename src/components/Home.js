@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { handleReceiveAllQuestions } from '../actions/questions'
 import Tabs from './Tabs'
 import Answered from './Answered'
 import UnAnswered from './UnAnswered'
@@ -17,11 +16,6 @@ class Home extends Component {
     this.setState({
       selectedTab,
     })
-  }
-
-  componentDidMount() {
-    const { dispatch, authedUser } = this.props
-    dispatch(handleReceiveAllQuestions(authedUser))
   }
 
   render() {
