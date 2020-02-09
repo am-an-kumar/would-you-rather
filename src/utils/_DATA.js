@@ -78,7 +78,7 @@ let questions = {
       text: 'use facebook',
     },
     optionTwo: {
-      votes: [],
+      votes: ['amank'],
       text: 'use instagram',
     },
   },
