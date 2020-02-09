@@ -2,8 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
+import { handleLogout } from '../actions/shared'
 
 class Navbar extends Component {
+  logoutHandler = () => {
+    this.props.dispatch(handleLogout())
+  }
+
   render() {
     const { id, name, avatarURL } = this.props
     return (
@@ -14,6 +19,7 @@ class Navbar extends Component {
         <p>{id}</p>
         <p>{name}</p>
         <p>{avatarURL}</p>
+        <button onClick={this.logoutHandler}>Logout</button>
       </nav>
     )
   }
@@ -32,6 +38,7 @@ Navbar.propTypes = {
   id: PropTypes.string,
   name: PropTypes.string,
   avatarURL: PropTypes.string,
+  dispatch: PropTypes.func,
 }
 
 export default connect(mapStateToProps)(Navbar)
