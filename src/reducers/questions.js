@@ -29,6 +29,7 @@ const questions = (state = {}, action) => {
         },
       }
 
+    // resetting questions as it contains user specific data
     case LOGOUT:
       return {}
 

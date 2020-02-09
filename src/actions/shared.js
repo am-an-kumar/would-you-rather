@@ -11,4 +11,4 @@ const login = authedUser => ({
 })
 
 export const handleLogout = () => logout()
-export const handleLogin = () => login()
+export const handleLogin = authedUser => login(authedUser)

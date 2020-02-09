@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom'
 import App from './components/App'
 import '@babel/polyfill'
 import './css/style.css'
+import reducer from './reducers'
+import middleware from './middlewares'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
 
 // react-axe will run only in dev mode
 if (process.env.NODE_ENV === 'development') {
@@ -11,4 +15,12 @@ if (process.env.NODE_ENV === 'development') {
   axe(React, ReactDOM, 1000)
 }
 
-ReactDOM.render(<App />, document.getElementById('root'))
+// initializing redux store
+const store = createStore(reducer, middleware)
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root'),
+)
