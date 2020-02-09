@@ -5,7 +5,7 @@ const Tabs = ({ selectedTab, handleTabChange }) => {
   const tabs = ['answered', 'unAnswered', 'asked']
 
   return (
-    <div>
+    <div role='tablist'>
       {tabs.map(tab => (
         <button
           role='tab'
