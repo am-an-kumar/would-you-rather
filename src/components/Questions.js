@@ -11,7 +11,7 @@ const convertQuestionsToArray = questions => {
 }
 
 const Questions = ({ questions }) => (
-  <ul>
+  <ul id='questions'>
     {convertQuestionsToArray(questions).map(question => (
       <Question {...question} key={question.id} />
     ))}
