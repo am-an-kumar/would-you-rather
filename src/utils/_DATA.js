@@ -58,7 +58,7 @@ let users = {
 let questions = {
   am8ehyc8byjqgar0jgpubg: {
     id: 'am8ehyc8byjqgar0jgpubg',
-    author: 'amak',
+    author: 'amank',
     timestamp: 1467166871614,
     optionOne: {
       votes: ['dllanor'],
@@ -211,19 +211,15 @@ export const _getAllQuestions = authedUser =>
       const answered = {},
         unAnswered = {},
         asked = {}
-      const questionDetails = {}
 
       for (const questionId of questionIds) {
         const currentQuestion = _.cloneDeep(questions[questionId], true)
 
         // checking if user has already answered this question
-        const usersAnswer = hasUserAnswered(
-          questionDetails[questionId],
-          authedUser,
-        )
+        const usersAnswer = hasUserAnswered(currentQuestion, authedUser)
 
         // checking if authedUser is the author of question
-        const hasUserAsked = questionDetails[questionId].author === authedUser
+        const hasUserAsked = currentQuestion.author === authedUser
 
         // adding poll details
         if (hasUserAsked || usersAnswer) {

@@ -9,25 +9,33 @@ const questions = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_ALL_QUESTIONS:
       return {
-        ...state,
         ...action.questions,
       }
+
+    // need to add question to "asked" object
 
     case ADD_NEW_QUESTION:
       return {
         ...state,
-        [action.question.id]: {
-          ...action.question,
+        asked: {
+          ...state.asked,
+          [action.question.id]: action.question,
         },
       }
 
-    case MARK_QUESTION_ANSWERED:
+    // need to move question from "unAnswered" to "answered"
+    case MARK_QUESTION_ANSWERED: {
+      const unAnswered = delete state.unAnswered[action.question.id]
+
       return {
         ...state,
-        [action.question.id]: {
-          ...action.question,
+        answered: {
+          ...state.answered,
+          [action.question.id]: action.question,
         },
+        unAnswered: unAnswered,
       }
+    }
 
     // resetting questions as it contains user specific data
     case LOGOUT:
