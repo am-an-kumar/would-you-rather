@@ -208,34 +208,52 @@ export const _getAllQuestions = authedUser =>
     setTimeout(() => {
       // get all question id's
       const questionIds = Object.keys(questions)
+      const answered = {},
+        unAnswered = {},
+        asked = {}
       const questionDetails = {}
 
       for (const questionId of questionIds) {
-        questionDetails[questionId] = _.cloneDeep(questions[questionId], true)
+        const currentQuestion = _.cloneDeep(questions[questionId], true)
 
+        // checking if user has already answered this question
         const usersAnswer = hasUserAnswered(
           questionDetails[questionId],
           authedUser,
         )
-        // if the user created question / has answered questions, then we return the votes stats. The details of users who votes is never sent
-        if (questionDetails[questionId].author === authedUser || usersAnswer) {
-          questionDetails[questionId].optionOne.votes =
-            questionDetails[questionId].optionOne.votes.length
-          questionDetails[questionId].optionTwo.votes =
-            questionDetails[questionId].optionTwo.votes.length
-        }
-        // stripping the votes stats as the user hasn't answered yet and is not the author for this question
-        else {
-          delete questionDetails[questionId].optionOne.votes
-          delete questionDetails[questionId].optionTwo.votes
+
+        // checking if authedUser is the author of question
+        const hasUserAsked = questionDetails[questionId].author === authedUser
+
+        // adding poll details
+        if (hasUserAsked || usersAnswer) {
+          currentQuestion.optionOne.votes =
+            currentQuestion.optionOne.votes.length
+          currentQuestion.optionTwo.votes =
+            currentQuestion.optionTwo.votes.length
         }
 
-        // adding user's answer if authedUser has answered the question/poll
-        if (usersAnswer) {
-          questionDetails[questionId].answer = usersAnswer
+        // removing poll details
+        else {
+          delete currentQuestion.optionOne.votes
+          delete currentQuestion.optionTwo.votes
+        }
+
+        // putting question in the correct object
+        if (hasUserAsked) {
+          asked[questionId] = currentQuestion
+        } else if (usersAnswer) {
+          currentQuestion.answer = usersAnswer
+          answered[questionId] = currentQuestion
+        } else {
+          unAnswered[questionId] = currentQuestion
         }
       }
-      resolve(questionDetails)
+      resolve({
+        answered,
+        unAnswered,
+        asked,
+      })
     }, 500),
   )
 
