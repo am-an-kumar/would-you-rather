@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import { handleAddNewQuestion } from '../actions/questions'
 
 class New extends Component {
   state = {
     optionOne: '',
     optionTwo: '',
+    redirectToHome: false,
   }
 
   handleFormSubmit = event => {
@@ -17,6 +19,7 @@ class New extends Component {
     this.setState({
       optionOne: '',
       optionTwo: '',
+      redirectToHome: true,
     })
 
     dispatch(handleAddNewQuestion(optionOne, optionTwo, authedUser))
@@ -31,7 +34,12 @@ class New extends Component {
   }
 
   render() {
-    const { optionOne, optionTwo } = this.state
+    const { optionOne, optionTwo, redirectToHome } = this.state
+
+    // redirecting to home after form submission
+    if (redirectToHome) {
+      return <Redirect to='/' />
+    }
 
     return (
       <form>
