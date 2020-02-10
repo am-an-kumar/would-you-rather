@@ -404,3 +404,17 @@ div.question {
 #missing-poll-error > a {
   color: green;
 }
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* login styles */
+.center {
+  text-align: center;
+}

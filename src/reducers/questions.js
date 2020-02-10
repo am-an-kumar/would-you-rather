@@ -13,7 +13,6 @@ const questions = (state = {}, action) => {
       }
 
     // need to add question to "asked" object
-
     case ADD_NEW_QUESTION:
       return {
         ...state,

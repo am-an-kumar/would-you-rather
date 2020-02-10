@@ -1,4 +1,6 @@
 import { getAllUsers } from '../utils/api'
+import { toast } from 'react-toastify'
+import { showLoading, hideLoading } from 'react-redux-loading'
 
 export const RECEIVE_ALL_USERS = 'RECEIVE_ALL_USERS'
 
@@ -8,7 +10,14 @@ const receiveAllUsers = users => ({
 })
 
 export const handleReceiveAllUsers = () => dispatch => {
+  dispatch(showLoading())
   getAllUsers()
-    .then(response => dispatch(receiveAllUsers(response)))
-    .catch(() => console.error('Error occured'))
+    .then(response => {
+      dispatch(receiveAllUsers(response))
+      dispatch(hideLoading())
+    })
+    .catch(() => {
+      dispatch(hideLoading())
+      toast.error('Error occured')
+    })
 }

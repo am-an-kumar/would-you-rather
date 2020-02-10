@@ -17,36 +17,38 @@ const QuestionPage = ({ question, authorDetails, authedUser }) => {
   }
 
   const { id, timestamp, author, optionOne, optionTwo, answer } = question
-  const { authorName, authorAvatarURL } = authorDetails
+  const { name, avatarURL } = authorDetails
 
   return (
-    <div
-      className='question'
-      style={{
-        padding: '10px',
-      }}
-    >
-      <AuthorInfo
-        timestamp={timestamp}
-        authedUser={authedUser}
-        authorName={authorName}
-        authorId={author}
-        authorAvatarURL={authorAvatarURL}
-      />
-      {author === authedUser || answer ? (
-        <OptionsWithStats
-          optionOne={optionOne}
-          optionTwo={optionTwo}
-          answer={answer}
-        />
-      ) : (
-        <PollForm
-          optionOneText={optionOne.text}
-          optionTwoText={optionTwo.text}
-          id={id}
+    <div className='container'>
+      <div
+        className='question'
+        style={{
+          padding: '10px',
+        }}
+      >
+        <AuthorInfo
+          timestamp={timestamp}
           authedUser={authedUser}
+          authorName={name}
+          authorId={author}
+          authorAvatarURL={avatarURL}
         />
-      )}
+        {author === authedUser || answer ? (
+          <OptionsWithStats
+            optionOne={optionOne}
+            optionTwo={optionTwo}
+            answer={answer}
+          />
+        ) : (
+          <PollForm
+            optionOneText={optionOne.text}
+            optionTwoText={optionTwo.text}
+            id={id}
+            authedUser={authedUser}
+          />
+        )}
+      </div>
     </div>
   )
 }

@@ -17,7 +17,7 @@ const Question = ({
   authedUser,
 }) => (
   <li className='question'>
-    <Link to={`/questions/${id}sd`}>
+    <Link to={`/questions/${id}`}>
       <AuthorInfo
         timestamp={timestamp}
         authedUser={authedUser}

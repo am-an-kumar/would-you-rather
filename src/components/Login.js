@@ -27,8 +27,8 @@ class Login extends Component {
     const { users } = this.props
 
     return (
-      <div>
-        <h3>Select user to login</h3>
+      <div className='container'>
+        <h3 className='center'>Select user to login</h3>
         <form>
           <select ref={this.selectRef}>
             {users.map(user => (
