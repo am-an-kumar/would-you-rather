@@ -10,6 +10,8 @@ const Question = ({
   optionTwo,
   authorName,
   authorAvatarURL,
+  authorId,
+  authedUser,
 }) => (
   <div className='question'>
     <div className='question-data'>
@@ -17,7 +19,9 @@ const Question = ({
       <div className='author-timestamp'>
         <span>{formatDate(timestamp)}</span>
         <p>
-          <span className='author'>{authorName}</span>
+          <span className='author'>
+            {authedUser === authorId ? 'You' : authorName}
+          </span>
           <span>&nbsp; asked</span>
         </p>
       </div>
@@ -38,9 +42,13 @@ Question.propTypes = {
   optionTwo: PropTypes.object,
   authorName: PropTypes.string,
   authorAvatarURL: PropTypes.string,
+  authedUser: PropTypes.string,
+  authorId: PropTypes.string,
 }
 
-const mapStateToProps = ({ users }, props) => ({
+const mapStateToProps = ({ users, authedUser }, props) => ({
+  authedUser,
+  authorId: users[props.author].id,
   authorName: users[props.author].name,
   authorAvatarURL: users[props.author].avatarURL,
 })
