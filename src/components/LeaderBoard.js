@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 const LeaderBoard = ({ users, leaders }) => (
   <ul id='leaderboard'>
-    {leaders.map(leader => {
+    {leaders.map((leader, index) => {
       const { name, id, avatarURL, asked, answered } = users[leader]
       return (
         <li key={id} className='leaderboard-entry'>
@@ -18,7 +18,7 @@ const LeaderBoard = ({ users, leaders }) => (
                 />
                 <p>{name}</p>
               </div>
-              <p className='rank'>#1</p>
+              <p className='rank'>{index < 3 ? `#${index + 1}` : ''}</p>
             </div>
             <div className='stats'>
               <div className='asked-answered'>
@@ -40,9 +40,9 @@ const LeaderBoard = ({ users, leaders }) => (
 const mapStateToProps = ({ users }) => {
   const leaders = Object.keys(users).sort(
     (firstUser, secondUser) =>
-      secondUser.asked +
-      secondUser.answered -
-      (firstUser.asked + firstUser.answered),
+      users[secondUser].asked +
+      users[secondUser].answered -
+      (users[firstUser].asked + users[firstUser].answered),
   )
   return {
     users,

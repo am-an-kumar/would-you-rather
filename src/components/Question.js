@@ -13,7 +13,7 @@ const Question = ({
   authorId,
   authedUser,
 }) => (
-  <div className='question'>
+  <li className='question'>
     <div className='question-data'>
       <img src={authorAvatarURL} alt={`Avatar of ${name}`} className='avatar' />
       <div className='author-timestamp'>
@@ -31,7 +31,7 @@ const Question = ({
       <li>{optionOne.text}</li>
       <li>{optionTwo.text}</li>
     </ul>
-  </div>
+  </li>
 )
 
 Question.propTypes = {

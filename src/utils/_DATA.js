@@ -31,6 +31,8 @@ let users = {
     avatarURL: 'https://tylermcginnis.com/would-you-rather/sarah.jpg',
     answers: {
       '6ni6ok3ym7mf1p33lnez': 'optionOne',
+      vthrdm985a262al8qx3do: 'optionOne',
+      loxhs1bqm25b708cmbf3g: 'optionTwo',
     },
     questions: ['8xf0y6ziyjabvozdd253nd', 'am8ehyc8byjqgar0jgpub9'],
   },
@@ -41,6 +43,7 @@ let users = {
     answers: {
       '8xf0y6ziyjabvozdd253nd': 'optionTwo',
       '6ni6ok3ym7mf1p33lnez': 'optionTwo',
+      xj352vofupe1dqz9emx13r: 'optionTwo',
     },
     questions: ['loxhs1bqm25b708cmbf3g', 'vthrdm985a262al8qx3do'],
   },
