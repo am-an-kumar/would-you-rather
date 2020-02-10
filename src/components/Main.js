@@ -16,12 +16,14 @@ class Main extends Component {
 
   render() {
     return (
-      <div>
+      <>
         <Navbar />
-        <Route exact path='/' component={Home} />
-        <Route path='/new' component={New} />
-        <Route path='/leaderboard' component={LeaderBoard} />
-      </div>
+        <div id='content'>
+          <Route exact path='/' component={Home} />
+          <Route path='/new' component={New} />
+          <Route path='/leaderboard' component={LeaderBoard} />
+        </div>
+      </>
     )
   }
 }

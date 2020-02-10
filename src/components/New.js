@@ -42,21 +42,23 @@ class New extends Component {
     }
 
     return (
-      <form>
+      <form className='new-form'>
         <p>Would you rather</p>
         <input
           type='text'
+          placeholder='Enter first option'
           value={optionOne}
           name='optionOne'
           onChange={this.onChangeHandler}
         />
         <input
           type='text'
+          placeholder='Enter second option'
           value={optionTwo}
           name='optionTwo'
           onChange={this.onChangeHandler}
         />
-        <button type='submit' onClick={this.handleFormSubmit}>
+        <button type='submit' onClick={this.handleFormSubmit} className='btn'>
           Submit
         </button>
       </form>
