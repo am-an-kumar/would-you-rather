@@ -2,7 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { formatDate } from '../../utils/helpers'
+import AuthorInfo from './AuthorInfo'
+import Options from './Options'
 
 // eslint-disable-next-line no-unused-vars
 const Question = ({
@@ -17,27 +18,14 @@ const Question = ({
 }) => (
   <li className='question'>
     <Link to={`/questions/${id}`}>
-      <div className='question-data'>
-        <img
-          src={authorAvatarURL}
-          alt={`Avatar of ${name}`}
-          className='avatar'
-        />
-        <div className='author-timestamp'>
-          <span>{formatDate(timestamp)}</span>
-          <p>
-            <span className='author'>
-              {authedUser === authorId ? 'You' : authorName}
-            </span>
-            <span>&nbsp; asked</span>
-          </p>
-        </div>
-      </div>
-      <p className='would-you-rather'>Would you rather</p>
-      <ul className='options'>
-        <li>{optionOne.text}</li>
-        <li>{optionTwo.text}</li>
-      </ul>
+      <AuthorInfo
+        timestamp={timestamp}
+        authedUser={authedUser}
+        authorName={authorName}
+        authorId={authorId}
+        authorAvatarURL={authorAvatarURL}
+      />
+      <Options optionOne={optionOne} optionTwo={optionTwo} />
     </Link>
   </li>
 )
@@ -52,6 +40,7 @@ Question.propTypes = {
   authorAvatarURL: PropTypes.string,
   authedUser: PropTypes.string,
   authorId: PropTypes.string,
+  answer: PropTypes.string,
 }
 
 const mapStateToProps = ({ users, authedUser }, props) => ({

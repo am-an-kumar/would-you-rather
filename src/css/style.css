@@ -112,9 +112,9 @@ a {
   margin: 0 auto;
   border: 1px solid #dad7d7;
   border-radius: 3px;
-  cursor: pointer;
   margin: 5px 10px;
   box-shadow: 2px 5px 5px rgba(197, 179, 179, 0.3);
+  cursor: text;
 }
 
 .info {
@@ -201,6 +201,10 @@ a {
   box-shadow: 2px 5px 5px rgba(197, 179, 179, 0.3);
 }
 
+div.question {
+  cursor: text;
+}
+
 .question > a {
   padding: 10px;
 }
@@ -231,6 +235,44 @@ a {
   color: black;
   padding: 5px;
   border-radius: 10px;
+}
+
+/* stats */
+
+.options > li {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.option-text {
+}
+
+.option-stats {
+  flex-grow: 1;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.stats-container {
+  display: inline-block;
+  width: 100px;
+  height: 20px;
+  border: 1px solid seagreen;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.stats-container .figure {
+  display: inline-block;
+  background-color: seagreen;
+  height: 100%;
+}
+
+.stats-container .text {
 }
 
 .question .options li::before {
@@ -326,4 +368,10 @@ a {
   outline: 0;
   font-weight: 700;
   border-width: 2px;
+}
+
+/* question page */
+.chosen-option {
+  border: 2px solid seagreen;
+  border-radius: 5px;
 }

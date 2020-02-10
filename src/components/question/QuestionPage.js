@@ -1,13 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { formatDate } from '../../utils/helpers'
+import AuthorInfo from './AuthorInfo'
+import OptionsWithStats from './OptionsWithStats'
 
 const QuestionPage = ({
   timestamp,
   author,
   optionOne,
   optionTwo,
+  answer,
   authorName,
   authorAvatarURL,
   authedUser,
@@ -18,23 +20,18 @@ const QuestionPage = ({
       padding: '10px',
     }}
   >
-    <div className='question-data'>
-      <img src={authorAvatarURL} alt={`Avatar of ${name}`} className='avatar' />
-      <div className='author-timestamp'>
-        <span>{formatDate(timestamp)}</span>
-        <p>
-          <span className='author'>
-            {authedUser === author ? 'You' : authorName}
-          </span>
-          <span>&nbsp; asked</span>
-        </p>
-      </div>
-    </div>
-    <p className='would-you-rather'>Would you rather</p>
-    <ul className='options'>
-      <li>{optionOne.text}</li>
-      <li>{optionTwo.text}</li>
-    </ul>
+    <AuthorInfo
+      timestamp={timestamp}
+      authedUser={authedUser}
+      authorName={authorName}
+      authorId={author}
+      authorAvatarURL={authorAvatarURL}
+    />
+    <OptionsWithStats
+      optionOne={optionOne}
+      optionTwo={optionTwo}
+      answer={answer}
+    />
   </div>
 )
 
@@ -63,6 +60,7 @@ QuestionPage.propTypes = {
   authorAvatarURL: PropTypes.string,
   authedUser: PropTypes.string,
   authorId: PropTypes.string,
+  answer: PropTypes.string,
 }
 
 export default connect(mapStateToProps)(QuestionPage)
