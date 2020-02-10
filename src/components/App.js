@@ -4,8 +4,17 @@ import { connect } from 'react-redux'
 import Login from './Login'
 import Main from './Main'
 import PropTypes from 'prop-types'
+import { Redirect, Switch, Route } from 'react-router-dom'
 
-const App = ({ authedUser }) => (authedUser === null ? <Login /> : <Main />)
+const App = ({ authedUser }) =>
+  authedUser === null ? (
+    <Switch>
+      <Route path='/login' component={Login} />
+      <Redirect to='/login' />
+    </Switch>
+  ) : (
+    <Main />
+  )
 
 const mapStateToProps = ({ authedUser }) => ({
   authedUser,
