@@ -26,7 +26,7 @@ class PollForm extends Component {
     const { optionOneText, optionTwoText } = this.props
     const { answer } = this.state
     return (
-      <form>
+      <form className='poll-form'>
         <div>
           <label htmlFor='option1'>
             <input
@@ -56,7 +56,11 @@ class PollForm extends Component {
             {optionTwoText}
           </label>
         </div>
-        <button type='submit' onClick={this.handlePollSubmission}>
+        <button
+          type='submit'
+          className='btn'
+          onClick={this.handlePollSubmission}
+        >
           Submit
         </button>
       </form>

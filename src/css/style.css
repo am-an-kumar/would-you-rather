@@ -316,6 +316,11 @@ div.question {
 }
 
 /* new poll */
+.warning-message {
+  color: red;
+  text-align: center;
+}
+
 .new-form {
   width: 90%;
   max-width: 500px;
@@ -417,4 +422,9 @@ div.question {
 /* login styles */
 .center {
   text-align: center;
+}
+
+/* poll form */
+.poll-form > div {
+  padding: 10px 0px;
 }
