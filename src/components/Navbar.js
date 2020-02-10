@@ -17,7 +17,7 @@ class Navbar extends Component {
       <nav id='nav'>
         <ul>
           <li>
-            <NavLink to='/' activeClassName='active'>
+            <NavLink to='/' exact activeClassName='active'>
               Home
             </NavLink>
           </li>
