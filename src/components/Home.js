@@ -2,13 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Tabs from './Tabs'
-import Answered from './Answered'
-import UnAnswered from './UnAnswered'
-import Asked from './Asked'
+import Questions from './question/Questions'
 
 class Home extends Component {
   state = {
-    selectedTab: 'answered',
+    selectedTab: 'unAnswered',
   }
 
   // will handle change between tabs
@@ -28,13 +26,15 @@ class Home extends Component {
           handleTabChange={this.handleTabChange}
           selectedTab={selectedTab}
         />
-        {selectedTab === 'answered' ? (
-          <Answered questions={answered} />
-        ) : selectedTab === 'unAnswered' ? (
-          <UnAnswered questions={unAnswered} />
-        ) : (
-          <Asked questions={asked} />
-        )}
+        <Questions
+          questions={
+            selectedTab === 'answered'
+              ? answered
+              : selectedTab == 'unAnswered'
+              ? unAnswered
+              : asked
+          }
+        />
       </>
     )
   }

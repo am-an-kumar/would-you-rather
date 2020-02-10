@@ -1,26 +1,30 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { formatDate } from '../utils/helpers'
+import { connect } from 'react-redux'
+import { formatDate } from '../../utils/helpers'
 
-// eslint-disable-next-line no-unused-vars
-const Question = ({
+const QuestionPage = ({
   timestamp,
+  author,
   optionOne,
   optionTwo,
   authorName,
   authorAvatarURL,
-  authorId,
   authedUser,
 }) => (
-  <li className='question'>
+  <div
+    className='question'
+    style={{
+      padding: '10px',
+    }}
+  >
     <div className='question-data'>
       <img src={authorAvatarURL} alt={`Avatar of ${name}`} className='avatar' />
       <div className='author-timestamp'>
         <span>{formatDate(timestamp)}</span>
         <p>
           <span className='author'>
-            {authedUser === authorId ? 'You' : authorName}
+            {authedUser === author ? 'You' : authorName}
           </span>
           <span>&nbsp; asked</span>
         </p>
@@ -31,10 +35,25 @@ const Question = ({
       <li>{optionOne.text}</li>
       <li>{optionTwo.text}</li>
     </ul>
-  </li>
+  </div>
 )
 
-Question.propTypes = {
+const mapStateToProps = ({ questions, users, authedUser }, props) => {
+  const question = {
+    ...questions.answered,
+    ...questions.unAnswered,
+    ...questions.asked,
+  }[props.match.params.id]
+  const authorDetails = users[question.author]
+  return {
+    ...question,
+    authorName: authorDetails.name,
+    authorAvatarURL: authorDetails.avatarURL,
+    authedUser,
+  }
+}
+
+QuestionPage.propTypes = {
   id: PropTypes.string,
   author: PropTypes.string,
   timestamp: PropTypes.number,
@@ -46,11 +65,4 @@ Question.propTypes = {
   authorId: PropTypes.string,
 }
 
-const mapStateToProps = ({ users, authedUser }, props) => ({
-  authedUser,
-  authorId: users[props.author].id,
-  authorName: users[props.author].name,
-  authorAvatarURL: users[props.author].avatarURL,
-})
-
-export default connect(mapStateToProps)(Question)
+export default connect(mapStateToProps)(QuestionPage)

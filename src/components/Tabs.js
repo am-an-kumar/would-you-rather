@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const Tabs = ({ selectedTab, handleTabChange }) => {
-  const tabs = ['answered', 'unAnswered', 'asked']
+  const tabs = ['unAnswered', 'answered', 'asked']
 
   return (
     <div role='tablist' id='tabs'>

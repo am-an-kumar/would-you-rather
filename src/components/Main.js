@@ -7,6 +7,7 @@ import Home from './Home'
 import New from './New'
 import LeaderBoard from './LeaderBoard'
 import { handleReceiveAllQuestions } from '../actions/questions'
+import QuestionPage from './question/QuestionPage'
 
 class Main extends Component {
   componentDidMount() {
@@ -21,8 +22,9 @@ class Main extends Component {
         <div id='content'>
           <Switch>
             <Route exact path='/' component={Home} />
-            <Route path='/new' component={New} />
+            <Route path='/add' component={New} />
             <Route path='/leaderboard' component={LeaderBoard} />
+            <Route path='/questions/:id' component={QuestionPage} />
             <Redirect to='/' />
           </Switch>
         </div>
