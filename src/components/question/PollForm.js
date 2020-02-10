@@ -36,6 +36,7 @@ class PollForm extends Component {
               value={optionOneText}
               checked={answer === 'optionOne'}
               onClick={() => this.handleChange('optionOne')}
+              onChange={() => this.handleChange('optionOne')}
             />
             {optionOneText}{' '}
           </label>
@@ -50,6 +51,7 @@ class PollForm extends Component {
               value={optionTwoText}
               checked={answer === 'optionTwo'}
               onClick={() => this.handleChange('optionTwo')}
+              onChange={() => this.handleChange('optionTwo')}
             />
             {optionTwoText}
           </label>

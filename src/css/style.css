@@ -207,6 +207,7 @@ div.question {
 
 .question > a {
   padding: 10px;
+  transition: box-shadow 0.5s;
 }
 
 .question > a:hover {

@@ -1,4 +1,5 @@
 import { getAllQuestions, saveQuestion, saveQuestionAnswer } from '../utils/api'
+import { toast } from 'react-toastify'
 
 export const RECEIVE_ALL_QUESTIONS = 'RECEIVE_ALL_QUESTIONS'
 export const ADD_NEW_QUESTION = 'ADD_NEW_QUESTION'
@@ -31,7 +32,10 @@ export const handleAddNewQuestion = (
   author,
 ) => dispatch => {
   saveQuestion({ optionOneText, optionTwoText, author })
-    .then(question => dispatch(addNewQuestion(question)))
+    .then(question => {
+      dispatch(addNewQuestion(question))
+      toast.success('Poll created')
+    })
     .catch(() => console.error('Error occured'))
 }
 
@@ -41,6 +45,9 @@ export const handleMarkQuestionAnswered = (
   answer,
 ) => dispatch => {
   saveQuestionAnswer({ authedUser, qid, answer })
-    .then(question => dispatch(markQuestionAnswered(question)))
+    .then(question => {
+      dispatch(markQuestionAnswered(question))
+      toast.success('Poll response saved')
+    })
     .catch(() => console.log('Error occured'))
 }
