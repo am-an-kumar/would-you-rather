@@ -9,6 +9,7 @@ class New extends Component {
     optionOne: '',
     optionTwo: '',
     redirectToHome: false,
+    hasError: false,
   }
 
   handleFormSubmit = event => {
@@ -16,12 +17,23 @@ class New extends Component {
     const { optionOne, optionTwo } = this.state
     const { dispatch, authedUser } = this.props
 
+    // control returns if either options are empty and warning message is displayed in UI
+    if (!(optionOne.trim() && optionTwo.trim())) {
+      this.setState({
+        optionOne: optionOne.trim(),
+        optionTwo: optionTwo.trim(),
+        hasError: true,
+      })
+      return
+    }
+
+    // form is submitted and UI is reset
+    // resetting form fields is not necessary as the user will be redirect to / eitherway, but added it for consistency
     this.setState({
       optionOne: '',
       optionTwo: '',
       redirectToHome: true,
     })
-
     dispatch(handleAddNewQuestion(optionOne, optionTwo, authedUser))
   }
 
@@ -30,11 +42,12 @@ class New extends Component {
     const { value, name } = event.target
     this.setState({
       [name]: value,
+      hasError: false,
     })
   }
 
   render() {
-    const { optionOne, optionTwo, redirectToHome } = this.state
+    const { optionOne, optionTwo, redirectToHome, hasError } = this.state
 
     // redirecting to home after form submission
     if (redirectToHome) {
@@ -58,6 +71,9 @@ class New extends Component {
           name='optionTwo'
           onChange={this.onChangeHandler}
         />
+        {hasError && (
+          <span className='warning-message'>Options can&apos;t be empty</span>
+        )}
         <button type='submit' onClick={this.handleFormSubmit} className='btn'>
           Submit
         </button>
