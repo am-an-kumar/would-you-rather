@@ -1,4 +1,5 @@
 import { getAllQuestions, saveQuestion, saveQuestionAnswer } from '../utils/api'
+import { showLoading, hideLoading } from 'react-redux-loading'
 import { toast } from 'react-toastify'
 
 export const RECEIVE_ALL_QUESTIONS = 'RECEIVE_ALL_QUESTIONS'
@@ -21,9 +22,16 @@ const markQuestionAnswered = question => ({
 })
 
 export const handleReceiveAllQuestions = authedUser => dispatch => {
+  dispatch(showLoading())
   getAllQuestions(authedUser)
-    .then(questions => dispatch(receiveAllQuestions(questions)))
-    .catch(() => console.error('Error occured'))
+    .then(questions => {
+      dispatch(receiveAllQuestions(questions))
+      dispatch(hideLoading())
+    })
+    .catch(() => {
+      dispatch(hideLoading())
+      toast.error('Error occured')
+    })
 }
 
 export const handleAddNewQuestion = (
@@ -31,12 +39,17 @@ export const handleAddNewQuestion = (
   optionTwoText,
   author,
 ) => dispatch => {
+  dispatch(showLoading())
   saveQuestion({ optionOneText, optionTwoText, author })
     .then(question => {
       dispatch(addNewQuestion(question))
+      dispatch(hideLoading())
       toast.success('Poll created')
     })
-    .catch(() => console.error('Error occured'))
+    .catch(() => {
+      dispatch(hideLoading())
+      toast.error('Error occured')
+    })
 }
 
 export const handleMarkQuestionAnswered = (
@@ -44,10 +57,15 @@ export const handleMarkQuestionAnswered = (
   qid,
   answer,
 ) => dispatch => {
+  dispatch(showLoading())
   saveQuestionAnswer({ authedUser, qid, answer })
     .then(question => {
       dispatch(markQuestionAnswered(question))
+      dispatch(hideLoading())
       toast.success('Poll response saved')
     })
-    .catch(() => console.log('Error occured'))
+    .catch(() => {
+      dispatch(hideLoading())
+      toast.error('Error occured')
+    })
 }

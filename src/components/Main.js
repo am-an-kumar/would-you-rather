@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Route, Switch, Redirect } from 'react-router-dom'
+import LoadingBar from 'react-redux-loading'
 import { connect } from 'react-redux'
 import Navbar from './Navbar'
 import Home from './Home'
@@ -18,6 +19,7 @@ class Main extends Component {
   render() {
     return (
       <>
+        <LoadingBar />
         <Navbar />
         <div id='content'>
           <Switch>

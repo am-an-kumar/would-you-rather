@@ -20,15 +20,16 @@ class ErrorBoundary extends Component {
   }
 
   render() {
-    if (this.state.hasError) {
-      return (
-        <div id='error-container'>
-          <p>Oops!!! Something went wrong. </p>
-          <Link to='/'>{"Let's go home"}</Link>
-        </div>
-      )
-    }
-    return this.props.children
+    const { hasError } = this.state
+
+    return hasError ? (
+      <div id='error-container'>
+        <p>Oops!!! Something went wrong. </p>
+        <Link to='/'>{"Let's go home"}</Link>
+      </div>
+    ) : (
+      this.props.children
+    )
   }
 }
 
