@@ -273,9 +273,6 @@ div.question {
   height: 100%;
 }
 
-.stats-container .text {
-}
-
 .question .options li::before {
   display: inline-block;
   content: '';
@@ -427,4 +424,38 @@ div.question {
 /* poll form */
 .poll-form > div {
   padding: 10px 0px;
+}
+
+/* login form */
+.login-container {
+  width: 90%;
+  max-width: 500px;
+  min-height: 300px;
+  padding: 0px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  border: 1px solid #dad7d7;
+  border-radius: 3px;
+  cursor: pointer;
+  margin: 5px 10px;
+  box-shadow: 2px 5px 5px rgba(197, 179, 179, 0.3);
+}
+
+.login-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form > select {
+  margin-right: 10px;
+  font-size: 16px;
+  padding: 10px 30px;
+}
+
+.login-form > .btn {
+  margin: 10px;
 }

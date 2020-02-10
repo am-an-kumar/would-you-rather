@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { handleReceiveAllUsers } from '../actions/users'
 import { handleLogin } from '../actions/shared'
+import { TiUser } from 'react-icons/ti/index'
 
 class Login extends Component {
   constructor(props) {
@@ -28,19 +29,30 @@ class Login extends Component {
 
     return (
       <div className='container'>
-        <h3 className='center'>Select user to login</h3>
-        <form>
-          <select ref={this.selectRef}>
-            {users.map(user => (
-              <option key={user.id} value={user.id}>
-                {user.name}
-              </option>
-            ))}
-          </select>
-          <button type='submit' onClick={this.handleLogin}>
-            Log in
-          </button>
-        </form>
+        <div className='login-container'>
+          <h3 className='center'>Select user to login</h3>
+          <TiUser
+            fontSize='80px'
+            color='red'
+            style={{
+              border: '1px solid red',
+              borderRadius: '40px',
+              backgroundColor: '#abc5df',
+            }}
+          />
+          <form className='login-form'>
+            <select ref={this.selectRef}>
+              {users.map(user => (
+                <option key={user.id} value={user.id}>
+                  {user.name}
+                </option>
+              ))}
+            </select>
+            <button type='submit' className='btn' onClick={this.handleLogin}>
+              Log in
+            </button>
+          </form>
+        </div>
       </div>
     )
   }
