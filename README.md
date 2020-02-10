@@ -1,43 +1,51 @@
-# React Boilerplate
+# Would You Rather
 
 ## Table of Contents
 
-- [Introduction](#introduction)
-
-- [Overview](#overview)
+- [Instructions](#instructions) - [Demo](#demo) - [Setting Up Locally](#setting-up-locally) - [Features](#features)
 
 - [Dependencies](#dependencies)
-- [Getting Started](#getting_started)
-
+- [Known Bugs](#known-bugs)
 - [Contributing](#contributing)
 
-## Introduction
+## Instructions
 
-This is a basic react boilerplate setup. It is good for use when you are getting started, or are creating something for yourself and want more control on config and want to see how it all works. But for production, use something more standard like [create-react-app](https://www.npmjs.com/package/create-react-app)
+Would You Rather is an application that lets you create a poll, answer to existing polls and view the leaderboard.
 
-## Overview
+### Demo
 
-Following npm scripts are configured:
+To see the demo, click [here](https://am-an-kumar.github.io/would-you-rather/)
 
-- dev - starts a local development server
-- dev:hot - starts a local development server and enables hot reload. Useful when you don't want to loose state due to full page refresh on making changes
-- build - creates a dist folder for deployment. By default, following files are present: - index.html - has base markup - app_bundle.js - generated bundle. Won't contain react or react-dom code, cause the config will put the cdn links for these in index.html - report.html - html report on contribution of different packages on overall bundle size
-  If your codebase has code-splitting, multiple bundles will be generated
-- format - formats the codebase. Uses prettier for it. To adjust formatting styles according to you, edit .prettierrc
-- lint - checks codebase for linting errors. Uses eslint for it. To adjust, edit .eslintrc.json
-- deploy - useful if you want to deploy to github static pages. Can be used to host web apps without any backend. To deploy: - Make sure that package.json has homepage set to your remote repo url - Execute npm run build - Execute npm run deploy
-- test - echoes "Error: no test specified" and exits. Modify it to run test script
+### Setting Up Locally
+
+Follow these steps to run the project locally
+
+- clone this repo and install the dependencies
+- start the frontend server by running - npm run dev or npm run dev:hot
+
+### Features
+
+- Login page has a dropdown of different users, select one to login.
+- Navbar has links to home page, new poll page and leaderboard page.
+- Home page has 3 tabs: - Answered - It shows the polls that you have answered. You can view the poll stats by clicking the card. - Unanswered - It shows the polls that you have not answered. You can go to the poll page by clicking the card. Once you submit your option, poll stats will be shown to you. - Asked - It shows the polls created by you. A user can't answer his/her own poll. But on clicking the poll card, the poll stats can be viewed. It is an extra feature i developed, cause it didn't make sense to allow a user to answer his/her own poll.
+- New page contains form to create a new poll.
+- Leaderboard page shows the leaderboard. Here users are ordered using sum of questions asked and answered. If this value is same for 2 users, the order in which data is received by fake api request is used.
+- Notifications are shown on answering a poll or creating a new poll.
 
 ## Dependencies
 
-Check package.json for details. Only basic dependencies are added. For dev dependencies, most of the things are covered. Add the ones you need
+This project mainly uses:
 
-## Getting_Started
+- react
+- react-router
+- redux
 
-- Edit src/components to develop an application
-- Edit src/css/ to style an application
-- While making commits, by default formatting and linting checks will be run and on any error, a commit won't succeed. There are few ways around it: - Edit .prettierrc and .eslintrc.json according to your development style - Bypass it by executing 'git commit --message "your message" --no-verify' - Remove pre-commit hook for husky from package.json
+Check the package.json for the full list. You can take a look at the [boilerplate setup](https://github.com/am-an-kumar/react-boilerplate) that i used for this project.
+
+## Known Bugs
+
+- On opening the [demo link](https://am-an-kumar.github.io/would-you-rather/), the browser redirects to (https://am-an-kumar.github.io). Which is fine until you refresh the page. The issue is concerned with public path setting with github static pages. Everything works fine on localhost. For production, it is taking '/' as https://am-an-kumar.github.io/. I am working on fixing it.
 
 ## Contributing
 
-I built this project just to get familiar with the way in which React tooling works. The project is complete with all desired functionalities and there are no known bugs. There can always be new features like using loaders to convert images to .webp and so on. Add those if you need it. Feel free to use it.
+Project is pretty much complete. Feel free to use it in what ever way you need. In case you can spot any other bug, please create a pull request. Follow the standard coding practices if you feel like creating a pull request.
