@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { FaSignOutAlt } from 'react-icons/fa/index'
 import { connect } from 'react-redux'
-import { NavLink } from 'react-router-dom'
+import { NavLink, withRouter } from 'react-router-dom'
 import { handleLogout } from '../actions/shared'
 
 class Navbar extends Component {
   logoutHandler = () => {
     this.props.dispatch(handleLogout())
+    this.props.history.push('/login')
   }
 
   render() {
@@ -57,6 +58,7 @@ Navbar.propTypes = {
   name: PropTypes.string,
   avatarURL: PropTypes.string,
   dispatch: PropTypes.func,
+  history: PropTypes.object,
 }
 
-export default connect(mapStateToProps)(Navbar)
+export default withRouter(connect(mapStateToProps)(Navbar))

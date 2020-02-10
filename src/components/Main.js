@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Route } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Navbar from './Navbar'
 import Home from './Home'
@@ -19,9 +19,12 @@ class Main extends Component {
       <>
         <Navbar />
         <div id='content'>
-          <Route exact path='/' component={Home} />
-          <Route path='/new' component={New} />
-          <Route path='/leaderboard' component={LeaderBoard} />
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route path='/new' component={New} />
+            <Route path='/leaderboard' component={LeaderBoard} />
+            <Redirect to='/' />
+          </Switch>
         </div>
       </>
     )
