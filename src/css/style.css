@@ -105,6 +105,7 @@ a {
   border-radius: 3px;
   cursor: pointer;
   margin: 5px 10px;
+  box-shadow: 2px 5px 5px rgba(197, 179, 179, 0.3);
 }
 
 .info {
@@ -158,6 +159,7 @@ a {
   border-radius: 3px;
   cursor: pointer;
   margin: 5px 10px;
+  box-shadow: 2px 5px 5px rgba(197, 179, 179, 0.3);
 }
 
 .question .question-data {
@@ -192,4 +194,33 @@ a {
   width: 0.7rem;
   margin-right: 0.5rem;
   background-color: dodgerblue;
+}
+
+/* tabs */
+#tabs {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
+}
+
+.tab {
+  padding: 14px 21px;
+  font-weight: normal;
+  text-transform: uppercase;
+  background: rgb(206, 188, 214);
+  cursor: pointer;
+  position: relative;
+  top: 4px;
+  border: none;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+  color: black;
+  margin-right: 1px;
+}
+
+.active-tab {
+  background-color: rgb(97, 46, 118);
+  color: white;
 }

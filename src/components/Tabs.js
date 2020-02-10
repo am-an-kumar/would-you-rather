@@ -5,13 +5,13 @@ const Tabs = ({ selectedTab, handleTabChange }) => {
   const tabs = ['answered', 'unAnswered', 'asked']
 
   return (
-    <div role='tablist'>
+    <div role='tablist' id='tabs'>
       {tabs.map(tab => (
         <button
           role='tab'
           key={tab}
           onClick={() => handleTabChange(tab)}
-          className={selectedTab === tab ? 'active-tab' : ''}
+          className={selectedTab === tab ? 'tab active-tab' : 'tab'}
         >
           {tab}
         </button>
