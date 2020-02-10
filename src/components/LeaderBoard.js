@@ -9,22 +9,27 @@ const LeaderBoard = ({ users, leaders }) => (
       return (
         <li key={id} className='leaderboard-entry'>
           <div className='info'>
-            <div className='personal'>
-              <p>{name}</p>
-              <img
-                src={avatarURL}
-                alt={`Avatar of ${name}`}
-                className='avatar'
-              />
+            <div className='user'>
+              <div className='personal'>
+                <img
+                  src={avatarURL}
+                  alt={`Avatar of ${name}`}
+                  className='avatar'
+                />
+                <p>{name}</p>
+              </div>
+              <p className='rank'>#1</p>
             </div>
             <div className='stats'>
-              <p>Asked: {asked}</p>
-              <p>Answered: {answered}</p>
+              <div className='asked-answered'>
+                <p>Asked: {asked}</p>
+                <p>Answered: {answered}</p>
+              </div>
+              <div className='score'>
+                <span>Score</span>
+                <span className='value'>{asked + answered}</span>
+              </div>
             </div>
-          </div>
-          <div className='score'>
-            <p>Score</p>
-            <p>{asked + answered}</p>
           </div>
         </li>
       )
