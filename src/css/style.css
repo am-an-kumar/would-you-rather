@@ -362,6 +362,7 @@ div.question {
 
 .btn:hover {
   background-color: #caca61c4;
+  font-weight: 600;
   text-decoration: none;
 }
 
@@ -375,4 +376,23 @@ div.question {
 .chosen-option {
   border: 2px solid seagreen;
   border-radius: 5px;
+}
+
+/* error boundary */
+#error-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  font-style: italic;
+  font-size: 1.5em;
+}
+
+#error-container > p {
+  color: red;
+}
+#error-container > a {
+  color: green;
 }
