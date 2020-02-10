@@ -3,8 +3,10 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import AuthorInfo from './AuthorInfo'
 import OptionsWithStats from './OptionsWithStats'
+import PollForm from './PollForm'
 
 const QuestionPage = ({
+  id,
   timestamp,
   author,
   optionOne,
@@ -27,11 +29,20 @@ const QuestionPage = ({
       authorId={author}
       authorAvatarURL={authorAvatarURL}
     />
-    <OptionsWithStats
-      optionOne={optionOne}
-      optionTwo={optionTwo}
-      answer={answer}
-    />
+    {author === authedUser || answer ? (
+      <OptionsWithStats
+        optionOne={optionOne}
+        optionTwo={optionTwo}
+        answer={answer}
+      />
+    ) : (
+      <PollForm
+        optionOneText={optionOne.text}
+        optionTwoText={optionTwo.text}
+        id={id}
+        authedUser={authedUser}
+      />
+    )}
   </div>
 )
 

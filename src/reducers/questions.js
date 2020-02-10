@@ -25,7 +25,7 @@ const questions = (state = {}, action) => {
 
     // need to move question from "unAnswered" to "answered"
     case MARK_QUESTION_ANSWERED: {
-      const unAnswered = delete state.unAnswered[action.question.id]
+      delete state.unAnswered[action.question.id]
 
       return {
         ...state,
@@ -33,7 +33,7 @@ const questions = (state = {}, action) => {
           ...state.answered,
           [action.question.id]: action.question,
         },
-        unAnswered: unAnswered,
+        unAnswered: { ...state.unAnswered },
       }
     }
 
