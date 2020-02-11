@@ -12,12 +12,14 @@ class Login extends Component {
   }
 
   handleLogin = event => {
+    const { history, location } = this.props
     event.preventDefault()
     const selectElement = this.selectRef.current
     // passing the selected user's user id to handleLogin()
     this.props.dispatch(
       handleLogin(selectElement.options[selectElement.selectedIndex].value),
     )
+    history.push(location.state.from)
   }
 
   componentDidMount() {
@@ -76,6 +78,8 @@ const mapStateToProps = ({ users }) => {
 Login.propTypes = {
   users: PropTypes.array,
   dispatch: PropTypes.func,
+  history: PropTypes.object,
+  location: PropTypes.object,
 }
 
 export default connect(mapStateToProps)(Login)

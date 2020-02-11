@@ -1,20 +1,27 @@
 import React from 'react'
-import { hot } from 'react-hot-loader'
 import { connect } from 'react-redux'
 import Login from './Login'
 import Main from './Main'
 import PropTypes from 'prop-types'
-import { Redirect, Switch, Route } from 'react-router-dom'
+import { Redirect, Switch, Route, withRouter } from 'react-router-dom'
 
-const App = ({ authedUser }) =>
-  authedUser === null ? (
+const App = props => {
+  const { location, authedUser } = props
+  return authedUser === null ? (
     <Switch>
       <Route path='/login' component={Login} />
-      <Redirect to='/login' />
+      {/* will redirect to / or the page that was open prior to being redirected to login */}
+      <Redirect
+        to={{
+          pathname: '/login',
+          state: { from: location ? location.pathname : '/' },
+        }}
+      />
     </Switch>
   ) : (
     <Main />
   )
+}
 
 const mapStateToProps = ({ authedUser }) => ({
   authedUser,
@@ -22,7 +29,7 @@ const mapStateToProps = ({ authedUser }) => ({
 
 App.propTypes = {
   authedUser: PropTypes.string,
+  location: PropTypes.object,
 }
 
-// hot(module)(App) - enables hot reloading for component tree rooted at App
-export default hot(module)(connect(mapStateToProps)(App))
+export default withRouter(connect(mapStateToProps)(App))

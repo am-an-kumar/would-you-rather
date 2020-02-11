@@ -6,7 +6,12 @@ import AuthorInfo from './AuthorInfo'
 import OptionsWithStats from './OptionsWithStats'
 import PollForm from './PollForm'
 
-const QuestionPage = ({ question, authorDetails, authedUser }) => {
+const QuestionPage = ({ question, authorDetails, authedUser, loading }) => {
+  // to make sure that for initial polls, the missing error is not shown prior to the details being fetched. Can be replaced by a Loading component
+  if (loading) {
+    return null
+  }
+
   if (!question) {
     return (
       <div id='missing-poll-error'>
@@ -53,7 +58,10 @@ const QuestionPage = ({ question, authorDetails, authedUser }) => {
   )
 }
 
-const mapStateToProps = ({ questions, users, authedUser }, props) => {
+const mapStateToProps = (
+  { questions, users, authedUser, loadingBar },
+  props,
+) => {
   const question = {
     ...questions.answered,
     ...questions.unAnswered,
@@ -63,6 +71,7 @@ const mapStateToProps = ({ questions, users, authedUser }, props) => {
     authedUser,
     question: question ? question : null,
     authorDetails: question ? users[question.author] : null,
+    loading: loadingBar.default === 1,
   }
 }
 
@@ -70,6 +79,7 @@ QuestionPage.propTypes = {
   question: PropTypes.object,
   authorDetails: PropTypes.object,
   authedUser: PropTypes.string,
+  loading: PropTypes.bool,
 }
 
 export default connect(mapStateToProps)(QuestionPage)
