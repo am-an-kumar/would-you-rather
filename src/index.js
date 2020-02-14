@@ -28,6 +28,7 @@ ReactDOM.render(
       <ErrorBoundary>
         <App />
         <ToastContainer
+          toastClassName='dark-toast'
           draggablePercent={60}
           autoClose={4000}
           position={'bottom-right'}

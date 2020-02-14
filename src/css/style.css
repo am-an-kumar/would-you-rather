@@ -136,8 +136,8 @@ a {
   flex-grow: 1;
   display: flex;
   flex-flow: row nowrap;
-  justify-content: center;
   align-items: center;
+  padding-left: 10px;
 }
 
 .info .user .rank {
@@ -458,6 +458,11 @@ div.question {
   margin: 0;
   font-size: 15px;
   background-color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 #welcome-heading {
@@ -475,4 +480,11 @@ div.question {
 #welcome-message {
   font-weight: 600;
   font-style: italic;
+}
+
+/* notification */
+.dark-toast {
+  border: none;
+  border-radius: 3px !important;
+  margin: 10px;
 }
