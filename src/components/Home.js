@@ -16,6 +16,7 @@ class Home extends Component {
     })
   }
 
+  // renders the 3 tabs, answered, unanswered and asked, and the questions of the tab that is currently selected
   render() {
     const { selectedTab } = this.state
     const { answered, unAnswered, asked } = this.props

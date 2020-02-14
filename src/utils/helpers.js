@@ -14,3 +14,17 @@ export const findRatio = (firstValue, secondValue) => {
   }
   return Math.floor((firstValue / (firstValue + secondValue)) * 100)
 }
+
+// formats questions based on timestamp, latest ones come first
+export const convertQuestionsToArray = questions => {
+  // sorting the question ids based on timestamp
+  const sortedQuestions = Object.keys(questions).sort(
+    (question1, question2) =>
+      questions[question2].timestamp - questions[question1].timestamp,
+  )
+  const formattedQuestions = []
+  for (const questionId of sortedQuestions) {
+    formattedQuestions.push(questions[questionId])
+  }
+  return formattedQuestions
+}

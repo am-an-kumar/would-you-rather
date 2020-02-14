@@ -1,4 +1,4 @@
-// these api exports will be used inside action creators
+// these api exports will be used inside async action handlers
 import {
   _getAllUsers,
   _getAllQuestions,

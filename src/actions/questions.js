@@ -2,10 +2,12 @@ import { getAllQuestions, saveQuestion, saveQuestionAnswer } from '../utils/api'
 import { showLoading, hideLoading } from 'react-redux-loading'
 import { toast } from 'react-toastify'
 
+// actions
 export const RECEIVE_ALL_QUESTIONS = 'RECEIVE_ALL_QUESTIONS'
 export const ADD_NEW_QUESTION = 'ADD_NEW_QUESTION'
 export const MARK_QUESTION_ANSWERED = 'MARK_QUESTION_ANSWERED'
 
+// action creators
 const receiveAllQuestions = questions => ({
   type: RECEIVE_ALL_QUESTIONS,
   questions,
@@ -21,6 +23,7 @@ const markQuestionAnswered = question => ({
   question,
 })
 
+// async action handlers
 export const handleReceiveAllQuestions = authedUser => dispatch => {
   dispatch(showLoading())
   getAllQuestions(authedUser)

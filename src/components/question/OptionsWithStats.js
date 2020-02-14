@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Stats from './Stats'
 
+// renders the options with stats for poll, used on answered and asked poll pages
 const OptionsWithStats = ({ optionOne, optionTwo, answer }) => (
   <ul className='options'>
     <li className={answer == 'optionOne' ? 'chosen-option' : ''}>

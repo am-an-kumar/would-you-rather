@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import AuthorInfo from './AuthorInfo'
 import Options from './Options'
 
-// eslint-disable-next-line no-unused-vars
+// renders the card for polls used in home page
 const Question = ({
   id,
   timestamp,

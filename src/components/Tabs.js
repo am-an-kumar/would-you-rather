@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 const Tabs = ({ selectedTab, handleTabChange }) => {
   const tabs = ['unAnswered', 'answered', 'asked']
 
+  // renders all the 3 tabs and styles the currently selected tab
   return (
     <div role='tablist' id='tabs'>
       {tabs.map(tab => (

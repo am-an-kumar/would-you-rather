@@ -239,15 +239,11 @@ div.question {
 }
 
 /* stats */
-
 .options > li {
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
   align-items: center;
-}
-
-.option-text {
 }
 
 .option-stats {
@@ -328,7 +324,6 @@ div.question {
   margin: 0 auto;
   border: 1px solid #dad7d7;
   border-radius: 3px;
-  cursor: pointer;
   margin: 5px 10px;
   box-shadow: 2px 5px 5px rgba(197, 179, 179, 0.3);
   margin: auto;
@@ -369,7 +364,7 @@ div.question {
 }
 
 .btn:focus {
-  outline: 0;
+  background-color: #caca61c4;
   font-weight: 700;
   border-width: 2px;
 }

@@ -48,6 +48,7 @@ class LeaderBoard extends Component {
 }
 
 const mapStateToProps = ({ users }) => {
+  // sorting the users part of store according to scor
   const leaders = Object.keys(users).sort(
     (firstUser, secondUser) =>
       users[secondUser].asked +

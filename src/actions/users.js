@@ -4,11 +4,13 @@ import { showLoading, hideLoading } from 'react-redux-loading'
 
 export const RECEIVE_ALL_USERS = 'RECEIVE_ALL_USERS'
 
+// action creator
 const receiveAllUsers = users => ({
   type: RECEIVE_ALL_USERS,
   users,
 })
 
+// async action handler
 export const handleReceiveAllUsers = () => dispatch => {
   dispatch(showLoading())
   getAllUsers()
