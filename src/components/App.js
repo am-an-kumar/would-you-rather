@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import LoginNew from './LoginNew'
+import Login from './Login'
 import Main from './Main'
 import PropTypes from 'prop-types'
 import { Redirect, Switch, Route, withRouter } from 'react-router-dom'
@@ -9,7 +9,7 @@ const App = props => {
   const { location, authedUser } = props
   return authedUser === null ? (
     <Switch>
-      <Route path='/login' component={LoginNew} />
+      <Route path='/login' component={Login} />
       {/* will redirect to / or the page that was open prior to being redirected to login */}
       <Redirect
         to={{

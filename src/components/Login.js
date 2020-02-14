@@ -5,7 +5,7 @@ import { handleReceiveAllUsers } from '../actions/users'
 import { handleLogin } from '../actions/shared'
 import LoginCard from './LoginCard'
 
-class LoginNew extends Component {
+class Login extends Component {
   componentDidMount() {
     this.props.dispatch(handleReceiveAllUsers())
   }
@@ -28,26 +28,8 @@ class LoginNew extends Component {
 
     return (
       <div className='container'>
-        <h1
-          className='center'
-          style={{
-            backgroundColor: '#caca61c4',
-            margin: '0',
-            color: '#0e3357',
-            width: '100%',
-            padding: '10px',
-          }}
-        >
-          Welcome to would you rather
-        </h1>
-        <h3
-          className='center'
-          style={{
-            color: '#0e3357',
-          }}
-        >
-          Select user to log in
-        </h3>
+        <h1 id='welcome-heading'>would you rather ??</h1>
+        <h3 id='welcome-message'>Select user profile to log in</h3>
         <ul id='login-cards-container'>
           {users.map(user => (
             <LoginCard
@@ -62,7 +44,7 @@ class LoginNew extends Component {
   }
 }
 
-LoginNew.propTypes = {
+Login.propTypes = {
   users: PropTypes.array,
   dispatch: PropTypes.func,
   history: PropTypes.object,
@@ -84,4 +66,4 @@ const mapStateToProps = ({ users }) => {
   }
 }
 
-export default connect(mapStateToProps)(LoginNew)
+export default connect(mapStateToProps)(Login)
