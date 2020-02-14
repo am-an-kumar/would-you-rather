@@ -74,6 +74,7 @@ a {
 
 .active {
   font-weight: bold;
+  color: #929234c4;
 }
 
 .avatar {
@@ -291,7 +292,7 @@ div.question {
   padding: 14px 21px;
   font-weight: normal;
   text-transform: uppercase;
-  background: rgb(206, 188, 214);
+  background-color: #caca61c4;
   cursor: pointer;
   position: relative;
   top: 4px;
@@ -303,8 +304,8 @@ div.question {
 }
 
 .active-tab {
-  background-color: rgb(97, 46, 118);
   color: white;
+  background-color: #929234c4;
 }
 
 /* new poll */

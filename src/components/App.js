@@ -1,4 +1,5 @@
 import React from 'react'
+import { hot } from 'react-hot-loader'
 import { connect } from 'react-redux'
 import Login from './Login'
 import Main from './Main'
@@ -32,4 +33,4 @@ App.propTypes = {
   location: PropTypes.object,
 }
 
-export default withRouter(connect(mapStateToProps)(App))
+export default hot(module)(withRouter(connect(mapStateToProps)(App)))
