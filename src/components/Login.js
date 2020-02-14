@@ -12,14 +12,18 @@ class Login extends Component {
   }
 
   handleLogin = event => {
-    const { history, location } = this.props
     event.preventDefault()
+    const { history, location, dispatch } = this.props
     const selectElement = this.selectRef.current
     // passing the selected user's user id to handleLogin()
-    this.props.dispatch(
+    dispatch(
       handleLogin(selectElement.options[selectElement.selectedIndex].value),
     )
-    history.push(location.state.from)
+    if (location.state) {
+      history.push(location.state.from)
+    } else {
+      history.push('/')
+    }
   }
 
   componentDidMount() {
